@@ -13,7 +13,10 @@ exports.run = async (bot, message, args) => {
         fields: [
             {
                 name: "Sei un abbonato?",
-                value: "Se la risposta è si contatta:  e mandagli una foto del tuo abbonamento ovviamente non farti paura di nasconere i dati sensibili"
+                value: "Se la risposta è si contatta: @CristinaSumma e mandagli una foto del tuo abbonamento."
+            },{
+                name: "Sei nel gruppo telegram ma non hai il ruolo su discord?",
+                value: "fai .abbonatod [@telgram] e i moderatori ci penseranno; Non abusare del comando perchè può comportare un ban permanente."
             }
         ]
     }})

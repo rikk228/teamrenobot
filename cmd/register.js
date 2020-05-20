@@ -2,9 +2,9 @@ const discord = require("discord.js");
 
 exports.run = async (bot, message, args) => {
 
-    rGiver("683247475665928237");
     rGiver("683245875023183993");
     rGiver("683245470784552971");
+    rGiver("683247723855609891");
     message.channel.send("Dimmi la tua piattaforma di gioco, quelle disponibili sono: ``pc``, ``ps4``, ``xbox``. Se invece volevi solo verificarti dì ``fatto``");
 
     const filter = m => m.author.id === message.author.id;
@@ -15,18 +15,21 @@ exports.run = async (bot, message, args) => {
 
             if(response === "pc"){
             rGiver("683245422705508353");
+            rGiver("683247475665928237");
             const addgamecmd = require("./addgame.js");
             addgamecmd.run(bot, message);
             }
 
             if(response === "ps4"){
             rGiver("683245365679620155");
+            rGiver("683247475665928237");
             const addgamecmd = require("./addgame.js");
             addgamecmd.run(bot, message);
             }
 
             if(response === "xbox"){
             rGiver("683245553525456916");
+            rGiver("683247475665928237");
             const addgamecmd = require("./addgame.js");
             addgamecmd.run(bot, message);
             }

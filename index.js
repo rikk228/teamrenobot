@@ -22,7 +22,6 @@ bot.on("message", async (message) => {
     let cmd          = messageArray[0];
     let args         = messageArray.slice(1); 
     let usern        = message.member;
-    let member       = message.member;
 
     console.log(`${usern}: ${message}`);
     
@@ -37,17 +36,29 @@ bot.on("message", async (message) => {
         const pingcmd = require("./cmd/ping.js");
         pingcmd.run(bot, message);
     }
+
+    if(cmd === `${prefix}spam`) {
+        
+    }
  
     //comando ".register"
     if(cmd === `${prefix}register`) {
-        const registercmd = require("./cmd/register.js");
-        registercmd.run(bot, message, args);
+        if(message.member.roles.some(role => role.name === 'Verificato')) {
+            message.channel.send("Ti sei già registrato, non è possibile registrarsi una seconda volta");
+        } else {
+            const registercmd = require("./cmd/register.js");
+            registercmd.run(bot, message, args);
+        }
     }
 
     //comando giochi
     if(cmd === `${prefix}addgame`) {
-        const addgamecmd = require("./cmd/addgame.js");
-        addgamecmd.run(bot, message);
+        if(message.member.roles.some(role => role.name === 'Verificato')) {
+            const addgamecmd = require("./cmd/addgame.js");
+            addgamecmd.run(bot, message);
+        } else {
+            message.channel.send("Devi registrarti prima ``.register``");
+        }
     }
 
     //comando "live?"
@@ -69,18 +80,72 @@ bot.on("message", async (message) => {
     }
 
     if(cmd === `${prefix}removegame`) {
-        const removegamecmd = require("./cmd/removegame.js");
-        removegamecmd.run(bot, message);
+        if(message.member.roles.some(role => role.name === 'Verificato')) {
+            const removegamecmd = require("./cmd/removegame.js");
+            removegamecmd.run(bot, message);
+        } else {
+            message.channel.send("Devi registrarti prima ``.register``");
+        }
+    }
+    if(cmd === `${prefix}piattaforma`) {
+        const piattaformacmd = require("./cmd/piattaforma.js");
+        piattaformacmd.run(bot, message);
     }
 
     if(cmd === `${prefix}canalevalorant`){
-        message.channel.send("https://www.youtube.com/channel/UCINA0WVoL07Gq21sSAFSLrg")
+        message.channel.send("https://www.youtube.com/channel/UCINA0WVoL07Gq21sSAFSLrg");
     }
     
-    //if(cmd === `${prefix}abbonato`){
-    //    const abbonatocmd = require("./cmd/abbonato.js");
-    //    abbonatocmd.run(bot, message, args);
-    //}
+    // if(cmd === `${prefix}abbonato`){
+    //     const abbonatocmd = require("./cmd/abbonato.js");
+    //     abbonatocmd.run(bot, message, args);
+    // }
+    // if(cmd === `${prefix}abbonatod`){
+
+    //     const abbonatodcmd = require("./cmd/abbonatod.js");
+    //     abbonatodcmd.run(bot, message, args);
+
+    // }
+    // if(cmd === `${prefix}test`){
+
+    //     message.channel.send({embed: 
+    //         {
+    //         color: 15105570,
+    //         author: {
+    //             name: bot.user.username,
+    //             icon_url: bot.user.avatarURL
+    //         },
+    //         description: "",
+    //         fields: [
+    //             {
+    //                 name: "Aggiungi giochi al prifilo",
+    //                 value: "test"
+    //             },
+    //         ]
+    //     }}).then(() => message.react('711973188287987734'))
+    
+    // //const gtave = message.guild.emojis.cache.find(emoji => emoji.name === 'GTA5');
+    // message.react('👍').then(() => message.react('👎'));
+
+    // const filter = (reaction, user) => {
+    //     return ['👍', '👎'].includes(reaction.emoji.name) && user.id === message.author.id;
+    // };
+    
+    // message.awaitReactions(filter, { max: 1, time: 60000, errors: ['time'] })
+    //     .then(collected => {
+    //         const reaction = collected.first();
+    
+    //         if (reaction.emoji.name === '👍') {
+    //             message.reply('you reacted with a thumbs up.');
+    //         } else {
+    //             message.reply('you reacted with a thumbs down.');
+    //         }
+    //     })
+    //     .catch(collected => {
+    //         message.reply('you reacted with neither a thumbs up, nor a thumbs down.');
+    //     });
+    
+    // }
  
 });  
 

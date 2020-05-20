@@ -79,7 +79,7 @@ exports.run = async (bot, message, args) => {
                         },
                         {
                             name: "`.canalevalorant`",
-                            value: "Canle di guide per valorant di Reno e del suo mitico compagno di avventure TheAratoRR."
+                            value: "Canale di guide per valorant di Reno e del suo mitico compagno di avventure TheAratoRR."
                         },
                     ]
                 }})
