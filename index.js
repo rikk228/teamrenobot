@@ -23,18 +23,20 @@ bot.on("message", async (message) => {
     let args         = messageArray.slice(1); 
     let usern        = message.member;
 
-    console.log(`${usern}: ${message}`);
+    //console.log(`${usern}: ${cmd}`);
     
     //comando help
     
     if(cmd === `${prefix}help`){     
       const helpcmd = require("./cmd/help.js");
       helpcmd.run(bot, message, args);
+      console.log(`${usern}: ${message}`);
     }
 
     if(cmd === `${prefix}ping`) {
         const pingcmd = require("./cmd/ping.js");
         pingcmd.run(bot, message);
+        console.log(`${usern}: ${message}`);
     }
 
     if(cmd === `${prefix}spam`) {
@@ -49,6 +51,7 @@ bot.on("message", async (message) => {
             const registercmd = require("./cmd/register.js");
             registercmd.run(bot, message, args);
         }
+        console.log(`${usern}: ${message}`);
     }
 
     //comando giochi
@@ -59,6 +62,7 @@ bot.on("message", async (message) => {
         } else {
             message.channel.send("Devi registrarti prima ``.register``");
         }
+        console.log(`${usern}: ${message}`);
     }
 
     //comando "live?"
@@ -72,11 +76,13 @@ bot.on("message", async (message) => {
             message.delete(1);
             message.channel.send("❌Accesso Negato❌");
         }
+        console.log(`${usern}: ${message}`);
     }
     
     if(cmd === `${prefix}guidaonline`) {
         const guidaonlinecmd = require("./cmd/guidaonline.js");
         guidaonlinecmd.run(bot, message);
+        console.log(`${usern}: ${message}`);
     }
 
     if(cmd === `${prefix}removegame`) {
@@ -86,14 +92,17 @@ bot.on("message", async (message) => {
         } else {
             message.channel.send("Devi registrarti prima ``.register``");
         }
+        console.log(`${usern}: ${message}`);
     }
     if(cmd === `${prefix}piattaforma`) {
         const piattaformacmd = require("./cmd/piattaforma.js");
         piattaformacmd.run(bot, message);
+        console.log(`${usern}: ${message}`);
     }
 
     if(cmd === `${prefix}canalevalorant`){
         message.channel.send("https://www.youtube.com/channel/UCINA0WVoL07Gq21sSAFSLrg");
+        console.log(`${usern}: ${message}`);
     }
     
     // if(cmd === `${prefix}abbonato`){
