@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 
-exports.run = async (bot, message) => {
+exports.run = async (bot, message, rGiver, rRemove) => {
 
     message.channel.send("Se hai un gioco tra questa lista dimmelo (solo uno): ``fortnite``, ``minecraft``, ``apex legends``, ``gta v``, ``read dead redemption 2``, ``rainbow six siege``, ``league of legend``, ``fivem``, ``warzone``, ``valorant``, ``cs:go``");
     const filter = m => m.author.id === message.author.id;
@@ -64,9 +64,4 @@ exports.run = async (bot, message) => {
         }
 
         if(response === 'Annulla') return message.reply("Annullato")}).catch("Tempo scaduto");
-
-    function rGiver(id) {
-        message.member.addRole(message.guild.roles.get(id));
-    }
-
 };

@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 
-exports.run = async (bot, message, args) => {
+exports.run = async (bot, message, args, rGiver, rRemove) => {
 
     message.channel.send("Dimma la tua piattaforma di gioco principale: ``pc, ps4, xbox``.");
     const filter = m => m.author.id === message.author.id;
@@ -12,7 +12,6 @@ exports.run = async (bot, message, args) => {
                 if((message.member.roles.some(role => role.name === 'pc'))) {
                     message.channel.send("Hai già quella piattaforma!");
                 } else {
-                    rRemove("683245422705508353");
                     rRemove("683245365679620155");
                     rRemove("683245553525456916");
                     rGiver("683245422705508353");
@@ -24,7 +23,6 @@ exports.run = async (bot, message, args) => {
                 if((message.member.roles.some(role => role.name === 'ps4'))) {
                     message.channel.send("Hai già quella piattaforma!");
                 } else {
-                    rRemove("683245365679620155");
                     rRemove("683245422705508353");
                     rRemove("683245553525456916");
                     rGiver("683245365679620155");
@@ -36,7 +34,6 @@ exports.run = async (bot, message, args) => {
                 if((message.member.roles.some(role => role.name === 'xbox'))) {
                     message.channel.send("Hai già quella piattaforma!");
                 } else {
-                    rRemove("683245553525456916");
                     rRemove("683245422705508353");
                     rRemove("683245365679620155");
                     rGiver("683245553525456916");
@@ -45,12 +42,4 @@ exports.run = async (bot, message, args) => {
                 }
             }    
             }).catch("Tempo scaduto")
-    
-    function rGiver(id) {
-        message.member.addRole(message.guild.roles.get(id));
-    }
-    function rRemove(id) {
-        message.member.removeRole(message.guild.roles.get(id));
-    }
-
 };

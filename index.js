@@ -45,20 +45,20 @@ bot.on("message", async (message) => {
  
     //comando ".register"
     if(cmd === `${prefix}register`) {
-        if(message.member.roles.some(role => role.name === 'Verificato')) {
+        if(hasRole("Verificato")) {
             message.channel.send("Ti sei già registrato, non è possibile registrarsi una seconda volta");
         } else {
             const registercmd = require("./cmd/register.js");
-            registercmd.run(bot, message, args);
+            registercmd.run(bot, message, args, rGiver, rRemove);
         }
         console.log(`${usern}: ${message}`);
     }
 
     //comando giochi
     if(cmd === `${prefix}addgame`) {
-        if(message.member.roles.some(role => role.name === 'Verificato')) {
+        if(hasRole("Verificato")) {
             const addgamecmd = require("./cmd/addgame.js");
-            addgamecmd.run(bot, message);
+            addgamecmd.run(bot, message, rGiver, rRemove);
         } else {
             message.channel.send("Devi registrarti prima ``.register``");
         }
@@ -67,7 +67,7 @@ bot.on("message", async (message) => {
 
     //comando "live?"
     if(cmd === `${prefix}liveyt`) {
-        if(message.member.roles.some(role => role.name === 'Moderatore')) {
+        if(message.member.roles(role => role.name === 'Moderatore')) {
             message.delete(1);
             if(!args[0]) return message.channel.send("manca il link");
             liveytc = bot.channels.get('683326307647356950');
@@ -86,9 +86,9 @@ bot.on("message", async (message) => {
     }
 
     if(cmd === `${prefix}removegame`) {
-        if(message.member.roles.some(role => role.name === 'Verificato')) {
+        if(message.member.roles(role => role.name === 'Verificato')) {
             const removegamecmd = require("./cmd/removegame.js");
-            removegamecmd.run(bot, message);
+            removegamecmd.run(bot, message, rGiver, rRemove);
         } else {
             message.channel.send("Devi registrarti prima ``.register``");
         }
@@ -105,16 +105,16 @@ bot.on("message", async (message) => {
         console.log(`${usern}: ${message}`);
     }
     
-    // if(cmd === `${prefix}abbonato`){
-    //     const abbonatocmd = require("./cmd/abbonato.js");
-    //     abbonatocmd.run(bot, message, args);
-    // }
-    // if(cmd === `${prefix}abbonatod`){
+    if(cmd === `${prefix}abbonato`){
+        const abbonatocmd = require("./cmd/abbonato.js");
+        abbonatocmd.run(bot, message, args);
+    }
+    if(cmd === `${prefix}abbonatod`){
 
-    //     const abbonatodcmd = require("./cmd/abbonatod.js");
-    //     abbonatodcmd.run(bot, message, args);
+        const abbonatodcmd = require("./cmd/abbonatod.js");
+        abbonatodcmd.run(bot, message, args);
 
-    // }
+    }
     // if(cmd === `${prefix}test`){
 
     //     message.channel.send({embed: 
@@ -127,7 +127,7 @@ bot.on("message", async (message) => {
     //         description: "",
     //         fields: [
     //             {
-    //                 name: "Aggiungi giochi al prifilo",
+    //                 name: "Aggiungi giochi al profilo",
     //                 value: "test"
     //             },
     //         ]
@@ -155,6 +155,17 @@ bot.on("message", async (message) => {
     //     });
     
     // }
+
+    function hasRole(ruolo) {
+        message.member.roles.cache.find(r => r.name === `${ruolo}`);
+    }
+    function rGiver(id) {
+        message.member.roles.add(id);
+    }
+    function rRemove(id) {
+        message.member.roles.remove(id);
+    }
+
  
 });  
 

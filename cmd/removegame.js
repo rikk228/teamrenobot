@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 
-exports.run = async (bot, message, args) => {
+exports.run = async (bot, message, args, rGiver, rRemove) => {
 
     message.channel.send("Ovviamente dimmi un ruolo che hai perchè altrimenti non posso rimuoverlo..");
     const filter = m => m.author.id === message.author.id;
@@ -8,7 +8,6 @@ exports.run = async (bot, message, args) => {
     .then(collected => {    
         if (!collected.first()) return message.reply("Tempo scaduto, riprova");
         let response = collected.first().content.toLowerCase();
-
         switch (response) {
             case "fortnite":
                 rGiver("683746737571364877");
@@ -62,11 +61,5 @@ exports.run = async (bot, message, args) => {
                 message.channel.send("Bene registrazione fatta, se in futuro o hai sbagliato e vuoi aggiungere, qualche gioco scrivi ``.addgame``");
                 break;
         }
-
         if(response === 'Annulla') return message.reply("Annullato")}).catch("Tempo scaduto");
-
-    function rGiver(id) {
-        message.member.removeRole(message.guild.roles.get(id));
-    }
-
 };
