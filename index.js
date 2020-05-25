@@ -36,13 +36,11 @@ bot.on("message", async (message) => {
     if(cmd === `${prefix}help`){     
       const helpcmd = require("./cmd/help.js");
       helpcmd.run(bot, message, args);
-      console.log(`${usern}: ${message}`);
     }
 
     if(cmd === `${prefix}ping`) {
         const pingcmd = require("./cmd/ping.js");
         pingcmd.run(bot, message);
-        console.log(`${usern}: ${message}`);
     }
 
     if(cmd === `${prefix}spam`) {
@@ -51,74 +49,65 @@ bot.on("message", async (message) => {
  
     //comando ".register"
     if(cmd === `${prefix}register`) {
-        if(message.member.roles.cache.find(r => r.name === "Verificato")) {
+        if(message.member.hasPermission("CREATE_INSTANT_INVITE")) {
             message.channel.send("Ti sei già registrato, non è possibile registrarsi una seconda volta");
         } else {
             const registercmd = require("./cmd/register.js");
             registercmd.run(bot, message, args, rGiver, rRemove);
         }
-        console.log(`${usern}: ${message}`);
     }
 
     //comando giochi
     if(cmd === `${prefix}addgame`) {
-        if(message.member.roles.cache.find(r => r.name === "Moderatore")) {
+        if(message.member.hasPermission("CREATE_INSTANT_INVITE")) {
             const addgamecmd = require("./cmd/addgame.js");
             addgamecmd.run(bot, message, rGiver, rRemove);
         } else {
             message.channel.send("Devi registrarti prima ``.register``");
         }
-        console.log(`${usern}: ${message}`);
     }
 
     //comando "live?"
     if(cmd === `${prefix}liveyt`) {
-        if(message.member.roles.cache.find(r => r.name === "Moderatore")) {
-            message.delete(1);
+        if(message.member.hasPermission("ADMINISTRATOR")) {
             if(!args[0]) return message.channel.send("manca il link");
             liveytc = bot.channels.get('683326307647356950');
             liveytc.send(`<@&683247475665928237> Ragas reno è andato in modalità live su youtube andate a vederlo: ${args}`);
         } else {
             message.channel.send("❌Accesso Negato❌");
         }
-        console.log(`${usern}: ${message}`);
     }
     
     if(cmd === `${prefix}guidaonline`) {
         const guidaonlinecmd = require("./cmd/guidaonline.js");
         guidaonlinecmd.run(bot, message);
-        console.log(`${usern}: ${message}`);
     }
 
     if(cmd === `${prefix}removegame`) {
-        if(message.member.roles.cache.find(r => r.name === "Verificato")) {
+        if(message.member.hasPermission("CREATE_INSTANT_INVITE")) {
             const removegamecmd = require("./cmd/removegame.js");
             removegamecmd.run(bot, message, rGiver, rRemove);
         } else {
             message.channel.send("Devi registrarti prima ``.register``");
         }
-        console.log(`${usern}: ${message}`);
     }
     if(cmd === `${prefix}piattaforma`) {
         const piattaformacmd = require("./cmd/piattaforma.js");
         piattaformacmd.run(bot, message);
-        console.log(`${usern}: ${message}`);
     }
 
     if(cmd === `${prefix}canalevalorant`){
         message.channel.send("https://www.youtube.com/channel/UCINA0WVoL07Gq21sSAFSLrg");
-        console.log(`${usern}: ${message}`);
     }
     
     if(cmd === `${prefix}abbonato`){
         const abbonatocmd = require("./cmd/abbonato.js");
         abbonatocmd.run(bot, message, args);
     }
-    if(cmd === `${prefix}abbonatod`){
 
+    if(cmd === `${prefix}abbonatod`){
         const abbonatodcmd = require("./cmd/abbonatod.js");
         abbonatodcmd.run(bot, message, args);
-
     }
     // if(cmd === `${prefix}test`){
 
