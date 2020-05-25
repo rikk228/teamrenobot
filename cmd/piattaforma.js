@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 
-exports.run = async (bot, message, args, rGiver, rRemove) => {
+exports.run = async (bot, message, args) => {
 
     message.channel.send("Dimma la tua piattaforma di gioco principale: ``pc, ps4, xbox``.");
     const filter = m => m.author.id === message.author.id;

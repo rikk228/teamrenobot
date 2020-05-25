@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 
-exports.run = async (bot, message, rGiver, rRemove) => {
+exports.run = async (bot, message) => {
 
     message.channel.send("Se hai un gioco tra questa lista dimmelo (solo uno): ``fortnite``, ``minecraft``, ``apex legends``, ``gta v``, ``read dead redemption 2``, ``rainbow six siege``, ``league of legend``, ``fivem``, ``warzone``, ``valorant``, ``cs:go``");
     const filter = m => m.author.id === message.author.id;

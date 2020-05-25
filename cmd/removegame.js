@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 
-exports.run = async (bot, message, args, rGiver, rRemove) => {
+exports.run = async (bot, message, args) => {
 
     message.channel.send("Ovviamente dimmi un ruolo che hai perchè altrimenti non posso rimuoverlo..");
     const filter = m => m.author.id === message.author.id;
