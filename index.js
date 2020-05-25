@@ -1,7 +1,8 @@
 const discord = require("discord.js");
 const bot = new discord.Client({disableEveryone: true});
 const botconfig = require("./botconfig.json");
-
+const fs = require("fs");
+var currentdate = new Date();
 
 bot.on("ready", async () => {
     console.log(`${bot.user.username} is online!`);
@@ -14,8 +15,13 @@ bot.on("message", async (message) => {
     return;
     if(message.channel.type === "dm")
     return;
-  
 
+    const logs = `${currentdate}: ${message.author} o ${message.author.username}, ${message.channel.id}: ${message} \n`;
+    fs.appendFile(`log.txt`, logs, (err) => {
+      if (err) {
+        return console.error(err)
+      }
+    });
 
     let prefix       = botconfig.prefix;
     let messageArray = message.content.split(" ");
@@ -45,7 +51,7 @@ bot.on("message", async (message) => {
  
     //comando ".register"
     if(cmd === `${prefix}register`) {
-        if(hasRole("Verificato")) {
+        if(message.member.roles.cache.find(r => r.name === "Verificato")) {
             message.channel.send("Ti sei già registrato, non è possibile registrarsi una seconda volta");
         } else {
             const registercmd = require("./cmd/register.js");
@@ -56,7 +62,7 @@ bot.on("message", async (message) => {
 
     //comando giochi
     if(cmd === `${prefix}addgame`) {
-        if(hasRole("Verificato")) {
+        if(message.member.roles.cache.find(r => r.name === "Moderatore")) {
             const addgamecmd = require("./cmd/addgame.js");
             addgamecmd.run(bot, message, rGiver, rRemove);
         } else {
@@ -67,13 +73,12 @@ bot.on("message", async (message) => {
 
     //comando "live?"
     if(cmd === `${prefix}liveyt`) {
-        if(message.member.roles(role => role.name === 'Moderatore')) {
+        if(message.member.roles.cache.find(r => r.name === "Moderatore")) {
             message.delete(1);
             if(!args[0]) return message.channel.send("manca il link");
             liveytc = bot.channels.get('683326307647356950');
             liveytc.send(`<@&683247475665928237> Ragas reno è andato in modalità live su youtube andate a vederlo: ${args}`);
         } else {
-            message.delete(1);
             message.channel.send("❌Accesso Negato❌");
         }
         console.log(`${usern}: ${message}`);
@@ -86,7 +91,7 @@ bot.on("message", async (message) => {
     }
 
     if(cmd === `${prefix}removegame`) {
-        if(message.member.roles(role => role.name === 'Verificato')) {
+        if(message.member.roles.cache.find(r => r.name === "Verificato")) {
             const removegamecmd = require("./cmd/removegame.js");
             removegamecmd.run(bot, message, rGiver, rRemove);
         } else {
@@ -155,10 +160,6 @@ bot.on("message", async (message) => {
     //     });
     
     // }
-
-    function hasRole(ruolo) {
-        message.member.roles.cache.find(r => r.name === `${ruolo}`);
-    }
     function rGiver(id) {
         message.member.roles.add(id);
     }

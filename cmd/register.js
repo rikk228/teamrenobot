@@ -8,7 +8,7 @@ exports.run = async (bot, message, args, rGiver) => {
     message.channel.send("Dimmi la tua piattaforma di gioco, quelle disponibili sono: ``pc``, ``ps4``, ``xbox``. Se invece volevi solo verificarti dì ``fatto``");
 
     const filter = m => m.author.id === message.author.id;
-    message.channel.awaitMessages(filter, { max: 2, time: 17000 })
+    message.channel.awaitMessages(filter, { max: 1, time: 17000 })
         .then(collected => {    
             if (!collected.first()) return message.reply("Tempo scaduto, riprova")       
             let response = collected.first().content.toLowerCase();
