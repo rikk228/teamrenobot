@@ -32,4 +32,10 @@ exports.run = async (bot, message, args, rGiver) => {
             }
             if(response === 'fatto') return message.channel.send("Registrazione completata, se in futuro vorrei cambiare qualcosa vai nei settings del tuo profilo cambiale (.help > settings)")    
             }).catch("Tempo scaduto")
+    function rGiver(id) {
+         message.member.roles.add(id);
+    }
+    function rRemove(id) {
+        message.member.roles.remove(id);
+    }
 };

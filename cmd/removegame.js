@@ -62,4 +62,10 @@ exports.run = async (bot, message, args, rGiver, rRemove) => {
                 break;
         }
         if(response === 'Annulla') return message.reply("Annullato")}).catch("Tempo scaduto");
+        function rGiver(id) {
+            message.member.roles.add(id);
+        }
+        function rRemove(id) {
+            message.member.roles.remove(id);
+        }
 };

@@ -42,4 +42,10 @@ exports.run = async (bot, message, args, rGiver, rRemove) => {
                 }
             }    
             }).catch("Tempo scaduto")
+    function rGiver(id) {
+        message.member.roles.add(id);
+    }
+    function rRemove(id) {
+        message.member.roles.remove(id);
+    }
 };

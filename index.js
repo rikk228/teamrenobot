@@ -53,7 +53,7 @@ bot.on("message", async (message) => {
             message.channel.send("Ti sei già registrato, non è possibile registrarsi una seconda volta");
         } else {
             const registercmd = require("./cmd/register.js");
-            registercmd.run(bot, message, args, rGiver, rRemove);
+            registercmd.run(bot, message, args);
         }
     }
 
@@ -61,7 +61,7 @@ bot.on("message", async (message) => {
     if(cmd === `${prefix}addgame`) {
         if(message.member.hasPermission("CREATE_INSTANT_INVITE")) {
             const addgamecmd = require("./cmd/addgame.js");
-            addgamecmd.run(bot, message, rGiver, rRemove);
+            addgamecmd.run(bot, message);
         } else {
             message.channel.send("Devi registrarti prima ``.register``");
         }
@@ -86,7 +86,7 @@ bot.on("message", async (message) => {
     if(cmd === `${prefix}removegame`) {
         if(message.member.hasPermission("CREATE_INSTANT_INVITE")) {
             const removegamecmd = require("./cmd/removegame.js");
-            removegamecmd.run(bot, message, rGiver, rRemove);
+            removegamecmd.run(bot, message);
         } else {
             message.channel.send("Devi registrarti prima ``.register``");
         }
@@ -149,14 +149,7 @@ bot.on("message", async (message) => {
     //     });
     
     // }
-    function rGiver(id) {
-        message.member.roles.add(id);
-    }
-    function rRemove(id) {
-        message.member.roles.remove(id);
-    }
 
- 
 });  
 
 bot.login(botconfig.token);
