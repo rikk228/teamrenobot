@@ -1,8 +1,8 @@
 const discord = require("discord.js");
-const bot = new discord.Client({disableEveryone: true});
+const bot = new discord.Client({disableEveryone: false});
 const botconfig = require("./botconfig.json");
 const fs = require("fs");
-var currentdate = new Date();
+let currentdate = new Date();
 
 bot.on("ready", async () => {
     console.log(`${bot.user.username} is online!`);
@@ -31,11 +31,20 @@ bot.on("message", async (message) => {
 
     //console.log(`${usern}: ${cmd}`);
     
-    //comando help
+
+    const anticheat = require("./cmd/mod/anticheat.js");
+    function anticheatf() {
+        anticheat.run(bot, message, args, cmd);
+    }
     
+    // function message.member.roles.cache.some(r => r.name === "Verificato")("Verificato") {
+    //     message.member.roles.cache.some(r => r.name === "Verificato");
+    // }
+
+    //comando help
     if(cmd === `${prefix}help`){     
-      const helpcmd = require("./cmd/help.js");
-      helpcmd.run(bot, message, args);
+      const helpcmd = require("./cmd/help/help.js");
+      helpcmd.run(bot, message, args, cmd);
     }
 
     if(cmd === `${prefix}ping`) {
@@ -44,23 +53,29 @@ bot.on("message", async (message) => {
     }
 
     if(cmd === `${prefix}spam`) {
+        if(message.member.hasPermission("ADMINISTRATOR")) {
+            message.channel.send(`Ricordo che per chi non è ancora verificato basta fare ".register" e poi seguire quello che vi dirò. Se avete domande sentitevi liberi di farle in <#686496252682174488>, prima di chiedere aiuto controllate <#712594302127308822> che magari trovate la risposta. @everyone`);
+            message.delete({timeout: 300});
+        } else {
+            anticheatf();
+        }
         
     }
  
     //comando ".register"
     if(cmd === `${prefix}register`) {
-        if(message.member.hasPermission("CREATE_INSTANT_INVITE")) {
+        if(message.member.roles.cache.some(r => r.name === "Verificato")) {
             message.channel.send("Ti sei già registrato, non è possibile registrarsi una seconda volta");
         } else {
-            const registercmd = require("./cmd/register.js");
+            const registercmd = require("./cmd/registring/register.js");
             registercmd.run(bot, message, args);
         }
     }
 
     //comando giochi
     if(cmd === `${prefix}addgame`) {
-        if(message.member.hasPermission("CREATE_INSTANT_INVITE")) {
-            const addgamecmd = require("./cmd/addgame.js");
+        if(message.member.roles.cache.some(r => r.name === "Verificato")) {
+            const addgamecmd = require("./cmd/registring/addgame.js");
             addgamecmd.run(bot, message);
         } else {
             message.channel.send("Devi registrarti prima ``.register``");
@@ -70,30 +85,49 @@ bot.on("message", async (message) => {
     //comando "live?"
     if(cmd === `${prefix}liveyt`) {
         if(message.member.hasPermission("ADMINISTRATOR")) {
-            if(!args[0]) return message.channel.send("manca il link");
-            liveytc = bot.channels.get('683326307647356950');
-            liveytc.send(`<@&683247475665928237> Ragas reno è andato in modalità live su youtube andate a vederlo: ${args}`);
+        const liveytcmd = require("./cmd/mod/liveyt.js");
+        liveytcmd.run(bot, message, args);
         } else {
-            message.channel.send("❌Accesso Negato❌");
+            anticheatf();
         }
     }
     
+    if(cmd === `${prefix}sonoabbonato`){
+        const sonoAbbonatocmd = require("./cmd/abbonati/abbonatoa.js");
+        sonoAbbonatocmd.run(bot, message);
+    }
+
     if(cmd === `${prefix}guidaonline`) {
         const guidaonlinecmd = require("./cmd/guidaonline.js");
         guidaonlinecmd.run(bot, message);
     }
 
+    if(cmd === `${prefix}risolto`) {
+        if(message.member.hasPermission("ADMINISTRATOR")) {
+            const risoltocmd = require("./cmd/mod/risolto.js");
+            risoltocmd.run(bot, message, args, cmd);
+        } else {
+            anticheatf();
+        }
+
+    }
+
     if(cmd === `${prefix}removegame`) {
-        if(message.member.hasPermission("CREATE_INSTANT_INVITE")) {
-            const removegamecmd = require("./cmd/removegame.js");
+        if(message.member.roles.cache.some(r => r.name === "Verificato")) {
+            const removegamecmd = require("./cmd/registring/removegame.js");
             removegamecmd.run(bot, message);
         } else {
             message.channel.send("Devi registrarti prima ``.register``");
         }
     }
     if(cmd === `${prefix}piattaforma`) {
-        const piattaformacmd = require("./cmd/piattaforma.js");
-        piattaformacmd.run(bot, message);
+        if(message.member.roles.cache.some(r => r.name === "Verificato")) {
+            const piattaformacmd = require("./cmd/registring/piattaforma.js");
+            piattaformacmd.run(bot, message);
+        } else {
+            message.channel.send("Devi registrarti prima ``.register``");
+        }
+        
     }
 
     if(cmd === `${prefix}canalevalorant`){
@@ -101,54 +135,62 @@ bot.on("message", async (message) => {
     }
     
     if(cmd === `${prefix}abbonato`){
-        const abbonatocmd = require("./cmd/abbonato.js");
+        const abbonatocmd = require("./cmd/abbonati/abbonato.js");
         abbonatocmd.run(bot, message, args);
     }
+    if(cmd === `${prefix}work`) {
+        const workcmd = require("./cmd/work.js");
+        workcmd.run(bot, message, fs, args);
 
+    }
+
+    
     if(cmd === `${prefix}abbonatod`){
         const abbonatodcmd = require("./cmd/abbonatod.js");
         abbonatodcmd.run(bot, message, args);
     }
-    // if(cmd === `${prefix}test`){
 
-    //     message.channel.send({embed: 
-    //         {
-    //         color: 15105570,
-    //         author: {
-    //             name: bot.user.username,
-    //             icon_url: bot.user.avatarURL
-    //         },
-    //         description: "",
-    //         fields: [
-    //             {
-    //                 name: "Aggiungi giochi al profilo",
-    //                 value: "test"
-    //             },
-    //         ]
-    //     }}).then(() => message.react('711973188287987734'))
     
-    // //const gtave = message.guild.emojis.cache.find(emoji => emoji.name === 'GTA5');
-    // message.react('👍').then(() => message.react('👎'));
+     if(cmd === `${prefix}test`){
 
-    // const filter = (reaction, user) => {
-    //     return ['👍', '👎'].includes(reaction.emoji.name) && user.id === message.author.id;
-    // };
+    const gtave = bot.emojis.cache.get("\:GTAV:");
+    message.channel.send({embed: 
+             {
+             color: 15105570,
+             author: {
+                 name: bot.user.username,
+                 icon_url: bot.user.avatarURL
+             },
+             description: "",
+             fields: [
+                 {
+                     name: "Aggiungi giochi al profilo",
+                     value: "test"
+                 },
+             ]
+         }}).then(() => message.react('gtave'))
     
-    // message.awaitReactions(filter, { max: 1, time: 60000, errors: ['time'] })
-    //     .then(collected => {
-    //         const reaction = collected.first();
+     message.react('👍').then(() => message.react('👎'));
+
+     const filter = (reaction, user) => {
+         return ['👍', '👎'].includes(reaction.emoji.name) && user.id === message.author.id;
+     };
     
-    //         if (reaction.emoji.name === '👍') {
-    //             message.reply('you reacted with a thumbs up.');
-    //         } else {
-    //             message.reply('you reacted with a thumbs down.');
-    //         }
-    //     })
-    //     .catch(collected => {
-    //         message.reply('you reacted with neither a thumbs up, nor a thumbs down.');
-    //     });
+     message.awaitReactions(filter, { max: 1, time: 60000, errors: ['time'] })
+         .then(collected => {
+             const reaction = collected.first();
     
-    // }
+             if (reaction.emoji.name === '👍') {
+                 message.reply('you reacted with a thumbs up.');
+             } else {
+                 message.reply('you reacted with a thumbs down.');
+             }
+         })
+        .catch(collected => {
+             message.reply('you reacted with neither a thumbs up, nor a thumbs down.');
+         });
+    
+    }
 
 });  
 
