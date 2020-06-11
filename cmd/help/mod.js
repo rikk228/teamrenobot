@@ -11,7 +11,7 @@ exports.run = async (bot, message, args, cmd) => {
                 icon_url: bot.user.avatarURL
             },
             description: "Moderatori:",
-            fields: [
+            fields: [ 
                 {
                     name: "`.liveyt [link]`",
                     value: "Quando reno va in live e non parte la notifica fai il comando e metti il link dopo il comando"
@@ -21,6 +21,12 @@ exports.run = async (bot, message, args, cmd) => {
                 },{
                     name: "`.risolto`",
                     value: "Serve quando la richiesta da abbonato è chiarita, 3 opzioni dopo aver fatto il comando: 'si' | 'no' | 'annulla'"
+                },{
+                    name: "`.set`",
+                    value: "Imposta qualche comando come .soldi"
+                },{
+                    name: "`.unset`",
+                    value: "Imposta qualche comando come .soldi"
                 }
             ]
         }})

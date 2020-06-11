@@ -26,12 +26,15 @@ exports.run = async (bot, message, args, cmd) => {
             },{
                 name: "`abbonato`",
                 value: "Sezione per abbonati"
+            },{
+                name: "`gta`",
+                value: "Qualche info su GTA V"
             }
         ]
     }})
     
     const filter = m => m.author.id === message.author.id;
-    message.channel.awaitMessages(filter, { max: 1, time: 15000 })
+    message.channel.awaitMessages(filter, { max: 1, time: 30000 })
     .then(collected => {    
         if (!collected.first()) return message.reply("Tempo scaduto, riprova");
         let response = collected.first().content.toLowerCase();
@@ -41,6 +44,11 @@ exports.run = async (bot, message, args, cmd) => {
             case "settings":
                 const settingsmodule = require("./setting.js");
                 settingsmodule.run(bot, message, args);
+            break;
+
+            case "gta":
+                const gtavmodule = require("./gta.js");
+                gtavmodule.run(bot, message, args);
             break;
 
             case "misc":

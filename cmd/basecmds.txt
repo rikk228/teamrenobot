@@ -23,14 +23,15 @@ exports.run = async (bot, message, args) => {
     }})
 
 
-    const filter = m => m.author.id === message.author.id;
-    message.channel.awaitMessages(filter, { max: 1, time: 17000 })
-        .then(collected => {    
-            if (!collected.first()) return message.reply("Tempo scaduto, riprova")       
-            let response = collected.first().content.toLowerCase();
+const filter = m => m.author.id === message.author.id;
+message.channel.awaitMessages(filter, { max: 1, time: 17000 })
+    .then(collected => {    
+        if (!collected.first()) return message.reply("Tempo scaduto, riprova")       
+        let response = collected.first().content.toLowerCase();
 
-            }).catch("Tempo scaduto")
+    }).catch("Tempo scaduto")
 
 
 ```````
+
 ``

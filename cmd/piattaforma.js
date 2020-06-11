@@ -9,35 +9,32 @@ exports.run = async (bot, message, args) => {
             if (!collected.first()) return message.reply("Tempo scaduto, riprova")       
             let response = collected.first().content.toLowerCase();
             if(response === "pc"){
-                if((message.member.roles.some(role => role.name === 'pc'))) {
+                if(message.member.roles.cache.some(r => r.name === "pc")) {
                     message.channel.send("Hai già quella piattaforma!");
                 } else {
-                    message.member.removeRole("683245365679620155");
-                    message.member.removeRole("683245553525456916");
-                    message.member.addRole("683245422705508353");
-                    message.member.addRole("683247475665928237");
+                    message.member.roles.remove("683245365679620155");
+                    message.member.roles.remove("683245553525456916");
+                    message.member.roles.add("683245422705508353");
                     message.channel.send("Piattaforma cambiata con successo!");
                 }
             }
             if(response === "ps4"){
-                if((message.member.roles.some(role => role.name === 'ps4'))) {
+                if(message.member.roles.cache.some(r => r.name === "ps4")) {
                     message.channel.send("Hai già quella piattaforma!");
                 } else {
-                    message.member.removeRole("683245422705508353");
-                    message.member.removeRole("683245553525456916");
-                    message.member.addRole("683245365679620155");
-                    message.member.addRole("683247475665928237");
+                    message.member.roles.remove("683245422705508353");
+                    message.member.roles.remove("683245553525456916");
+                    message.member.roles.add("683245365679620155");
                     message.channel.send("Piattaforma cambiata con successo!");
                 }
             }
             if(response === "xbox"){
-                if((message.member.roles.some(role => role.name === 'xbox'))) {
+                if(message.member.roles.cache.some(r => r.name === "xbox")) {
                     message.channel.send("Hai già quella piattaforma!");
                 } else {
-                    message.member.removeRole("683245422705508353");
-                    message.member.removeRole("683245365679620155");
-                    message.member.addRole("683245553525456916");
-                    message.member.addRole("683247475665928237");
+                    message.member.roles.remove("683245422705508353");
+                    message.member.roles.remove("683245365679620155");
+                    message.member.roles.add("683245553525456916");
                     message.channel.send("Piattaforma cambiata con successo!");
                 }
             }    

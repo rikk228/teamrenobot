@@ -36,10 +36,6 @@ bot.on("message", async (message) => {
     function anticheatf() {
         anticheat.run(bot, message, args, cmd);
     }
-    
-    // function message.member.roles.cache.some(r => r.name === "Verificato")("Verificato") {
-    //     message.member.roles.cache.some(r => r.name === "Verificato");
-    // }
 
     //comando help
     if(cmd === `${prefix}help`){     
@@ -59,7 +55,29 @@ bot.on("message", async (message) => {
         } else {
             anticheatf();
         }
-        
+    }
+
+    if(cmd === `${prefix}sconti`) {
+        const scontigta = require("./cmd/gta/sconti.js");
+        scontigta.run(bot, message, args);
+    }
+
+    if(cmd === `${prefix}set`) {
+        if(message.member.hasPermission("ADMINISTRATOR")) {
+            const setcmd = require("./cmd/set.js");
+            setcmd.run(bot, message, args);
+        } else {
+            anticheatf();
+        }
+    }
+
+    if(cmd === `${prefix}unset`) {
+        if(message.member.hasPermission("ADMINISTRATOR")) {
+            const unsetcmd = require("./cmd/unset.js");
+            unsetcmd.run(bot, message, args);
+        } else {
+            anticheatf();
+        }
     }
  
     //comando ".register"
@@ -138,12 +156,6 @@ bot.on("message", async (message) => {
         const abbonatocmd = require("./cmd/abbonati/abbonato.js");
         abbonatocmd.run(bot, message, args);
     }
-    if(cmd === `${prefix}work`) {
-        const workcmd = require("./cmd/work.js");
-        workcmd.run(bot, message, fs, args);
-
-    }
-
     
     if(cmd === `${prefix}abbonatod`){
         const abbonatodcmd = require("./cmd/abbonatod.js");
