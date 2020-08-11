@@ -3,7 +3,8 @@ const fs = require("fs");
 
 exports.run = async (bot, message, args) => {
 
-    message.channel.send("Dimmi gli sconti settimanali, segui questo path: \n \n ***Sconti settimanali [settimana]: *** \n\n ***Veicolo sul Podio:*** \n\n - \n\n  ***Soldi Doppi / Soldi tripli : *** \n\n - \n\n - \n\n***Sconti:*** \n\n\ - \n\n - \n\n ***Veicoli Aggiunti:*** \n\n - \n\n Per maggiori informazioni recatevi qui: \n https://gamegrind.it");    const filter = m => m.author.id === message.author.id;
+    const guild_id_path = `./guild/${message.guild.id}`;
+    
     message.channel.send("Hai 15 minuti.");
     message.channel.awaitMessages(filter, { max: 1, time: 900000 })
         .then(collected => {    
@@ -13,13 +14,13 @@ exports.run = async (bot, message, args) => {
             if(response === "annulla") {
                 return message.channel.send("Annullato");
             } else {
-                if(!"./cmd/gta/sconti.txt") {
-                    fs.unlink("./cmd/gta/sconti.txt", (err) => {
+                if(!`${guild_id_path}/sconti.txt`) {
+                    fs.unlink(`${guild_id_path}/sconti.txt`, (err) => {
                         if (err) {
                           console.error(err);
                         }})
                 }
-                fs.appendFile('./cmd/gta/sconti.txt', response, (err) => {
+                fs.writeFile(`${guild_id_path}/sconti.txt`, response, (err) => {
                     if (err) throw err;
                   });
                 message.channel.send("Fatto!");

@@ -2,7 +2,7 @@ const discord = require("discord.js");
 
 exports.run = async (bot, message, args, cmd) => {
 
-    if(message.member.roles.cache.some(r => r.name === "Moderatore")) {
+    if(message.member.hasPermission("ADMINISTRATOR")) {
         message.channel.send({embed: 
             {
             color: 15105570,
@@ -27,12 +27,14 @@ exports.run = async (bot, message, args, cmd) => {
                 },{
                     name: "`.unset`",
                     value: "Imposta qualche comando come .soldi"
+                },{
+                    name: "`.start`",
+                    value: "Ti permette di sbloccare i comandi: `.set`, `.unset`"
                 }
             ]
         }})
     } else {
-        const anticheat = require("./anticheat.js");
-        anticheat.run(bot, message, args, cmd);
+        message.channel.send("❌Accesso negato❌")
     }
 
 };

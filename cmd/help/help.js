@@ -29,6 +29,9 @@ exports.run = async (bot, message, args, cmd) => {
             },{
                 name: "`gta`",
                 value: "Qualche info su GTA V"
+            },{
+                name: "`info`",
+                value: "Qualcosa non va? Vuoi saperne di più?"
             }
         ]
     }})
@@ -69,6 +72,11 @@ exports.run = async (bot, message, args, cmd) => {
             case "abbonato":
                 const abbonatomodule = require("./abbonato.js");
                 abbonatomodule.run(bot, message, args, cmd);
+            break;
+
+            case "ifno":
+                const infomodule = require("./info.js");
+                infomodule.run(bot, message, args, cmd);
             break;
 
         }

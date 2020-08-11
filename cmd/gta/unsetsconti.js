@@ -3,19 +3,21 @@ const fs = require("fs");
 
 exports.run = async (bot, message, args) => {
 
-    message.channel.send("Sei sicuro di pulire il comando .sconti");
+    const guild_id_path = `./guild/${message.guild.id}`;
+
+    message.channel.send("Sei sicuro di pulire il comando .sconti **[S/n]**");
     const filter = m => m.author.id === message.author.id;
     message.channel.awaitMessages(filter, { max: 1, time: 17000 })
         .then(collected => {    
             if (!collected.first()) return message.reply("Tempo scaduto, riprova")       
             let response = collected.first().content.toLowerCase();
 
-            if(response === "no") {
-                message.channel.send("Annullato");
+            if(response === "no" || response === "n") {
+                return message.channel.send("Annullato");
             }
 
-            if(response === "si") {
-                fs.unlink("./cmd/gta/sconti.txt", (err) => {
+            if(response === "si" || response === "s") {
+                fs.unlink(`${guild_id_path}/sconti.txt`, (err) => {
                     if (err) {
                       console.error(err);
                 }})
@@ -23,4 +25,5 @@ exports.run = async (bot, message, args) => {
             }
 
         }).catch("Tempo scaduto")
+
 };
