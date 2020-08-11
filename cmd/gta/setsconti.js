@@ -6,6 +6,7 @@ exports.run = async (bot, message, args) => {
     const guild_id_path = `./guild/${message.guild.id}`;
     
     message.channel.send("Hai 15 minuti.");
+    const filter = m => m.author.id === message.author.id;
     message.channel.awaitMessages(filter, { max: 1, time: 900000 })
         .then(collected => {    
             if (!collected.first()) return message.reply("Tempo scaduto, riprova")       
