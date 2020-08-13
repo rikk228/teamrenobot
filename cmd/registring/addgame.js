@@ -2,7 +2,7 @@ const discord = require("discord.js");
 
 exports.run = async (bot, message) => {
 
-    message.channel.send("Se hai un gioco tra questa lista dimmelo (solo uno): ``fortnite``, ``minecraft``, ``apex legends``, ``gta v``,``spellbreak``, ``read dead redemption 2``, ``rainbow six siege``, ``league of legend``, ``fivem``, ``warzone``, ``valorant``, ``cs:go``");
+    message.channel.send("Se hai un gioco tra questa lista dimmelo (solo uno): ``fortnite``, ``minecraft``, ``apex legends``, ``gta v``,``spellbreak``, ``read dead redemption 2``, ``rainbow six siege``, ``league of legend``, ``fivem``, ``warzone``, ``valorant``, ``cs:go``, ``fall guys``");
     const filter = m => m.author.id === message.author.id;
     message.channel.awaitMessages(filter, { max: 1, time: 60000 })
     .then(collected => {    
@@ -60,6 +60,10 @@ exports.run = async (bot, message) => {
                 break;
             case "spellbreak":
                 message.member.roles.add("686969700508499990");
+                message.channel.send("Fatto! Gioco aggiunto al tuo profilo, se vuoi aggiungere qualche altro gioco digita ``.addgame``. Se per sbaglio hai aggiunto un gioco che non hai fai ``.removegame``");
+            break;
+            case "fall guys":
+                message.member.roles.add("743409967217901630");
                 message.channel.send("Fatto! Gioco aggiunto al tuo profilo, se vuoi aggiungere qualche altro gioco digita ``.addgame``. Se per sbaglio hai aggiunto un gioco che non hai fai ``.removegame``");
             break;
             case "fatto":

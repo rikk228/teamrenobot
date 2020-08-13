@@ -147,6 +147,20 @@ bot.on("message", async (message) => {
         scontigta.run(bot, message, args);
     }
 
+    if(cmd === `${prefix}gruppofallguys`) {
+        if(message.channel.type === "dm")
+        return; 
+        const gruppofallguys = require("./cmd/fall_guys/gruppotg.js");
+        gruppofallguys.run(bot, message, args);
+    }
+
+    if(cmd === `${prefix}notiziefallguys`) {
+        if(message.channel.type === "dm")
+        return; 
+        const notiziegruppofallguys = require("./cmd/fall_guys/notizietg.js");
+        notiziegruppofallguys.run(bot, message, args);
+    }
+
     if(cmd === `${prefix}set`) {
         if(message.channel.type === "dm")
         return; 

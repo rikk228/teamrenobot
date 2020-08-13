@@ -53,6 +53,10 @@ exports.run = async (bot, message, args) => {
                 message.member.roles.remove("699899893908635700")
                 message.channel.send("Fatto! Se hai altri giochi da rimuovere fai ``.removegame``");
                 break;
+            case "fall guys":
+                message.member.roles.remove("743409967217901630");
+                message.channel.send("Fatto! Se hai altri giochi da rimuovere fai ``.removegame``");
+                break;
             case "cs:go":
                 message.member.roles.remove("685529566265212959");
                 message.channel.send("Fatto! Se hai altri giochi da rimuovere fai ``.removegame``");
